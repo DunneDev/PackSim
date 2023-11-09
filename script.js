@@ -44,6 +44,8 @@ document.querySelector("form").addEventListener("submit", function (e) {
                 textArea.textContent += `${cardCount[card]} ${card}\n`;
             }
 
+            textArea.textContent = textArea.textContent.slice(0, -1);
+
             const resultsModal = new bootstrap.Modal("#resultsModal", {
                 keyboard: false,
             });
