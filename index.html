@@ -10,7 +10,7 @@
             integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
             crossorigin="anonymous"
         />
-        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="style.css" />
     </head>
     <body>
         <main class="container">
@@ -21,7 +21,6 @@
                         <label for="amount" class="col-form-label">Open</label>
                         <input
                             type="number"
-                            style="width: 65px"
                             value="6"
                             class="form-control mx-2"
                             name="amount"
@@ -38,42 +37,40 @@
             </form>
         </main>
 
-        <!-- FILEPATH: /c:/Users/sdunn/Documents/Personal/PackSim/index.html -->
-        <!-- BEGIN: jk3d9f8d4j3 -->
-        <!-- Button trigger modal -->
-        <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#resultsModal">
-          Open Modal
-        </button> -->
-
-        <!-- Modal -->
         <div class="modal fade" id="resultsModal" tabindex="-1">
-          <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title">Results</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <div class="modal-body">
-                <textarea class="form-control" readonly id="results"></textarea>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" onclick="copyToClipboard()">Copy All</button>
-              </div>
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Results</h5>
+                        <button
+                            type="button"
+                            class="btn-close"
+                            data-bs-dismiss="modal"
+                            aria-label="Close"
+                        ></button>
+                    </div>
+                    <div class="modal-body">
+                        <textarea
+                            class="form-control"
+                            readonly
+                            id="results"
+                        ></textarea>
+                    </div>
+                    <div class="modal-footer">
+                        <button
+                            type="button"
+                            class="btn btn-secondary"
+                            data-bs-dismiss="modal"
+                        >
+                            Close
+                        </button>
+                        <button type="button" class="btn btn-primary" id="copy">
+                            Copy All
+                        </button>
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
-
-        <script>
-          function copyToClipboard() {
-            var copyText = document.getElementById("results");
-            copyText.select();
-            copyText.setSelectionRange(0, 99999); /* For mobile devices */
-            document.execCommand("copy");
-          }
-        </script>
-        <!-- END: jk3d9f8d4j3 -->
-
         <script
             src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"

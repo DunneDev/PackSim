@@ -1,55 +1,65 @@
 document.querySelector("form").addEventListener("submit", function (e) {
     e.preventDefault();
 
-    const packComp = {
-        c: 11,
-        u: 3,
-        r: 1,
+    const packComposition = {
+        common: 11,
+        uncommon: 3,
+        rare: 1,
     };
 
     const set = "2ED";
 
-    const amount = document.querySelector("#amount").value;
+    fetch(`https://api.scryfall.com/cards/search?q=set:${set}`)
+        .then((response) => response.json())
+        .then((data) => {
+            const setData = data.data;
 
-    const cardCount = {};
+            const cards = {
+                common: filterByRarity("common", setData),
+                uncommon: filterByRarity("uncommon", setData),
+                rare: filterByRarity("rare", setData),
+            };
 
-    const promises = [];
+            const packAmount = document.querySelector("#amount").value;
 
-    for (const rarity in packComp) {
-        for (let i = 0; i < packComp[rarity] * amount; i++) {
-            console.log(
-                `Fetching ${rarity} card ${i + 1} of ${
-                    packComp[rarity] * amount
-                }`
-            );
-            const promise = fetch(
-                `https://api.scryfall.com/cards/random?q=set:${set}+rarity:${rarity}`
-            )
-                .then((response) => response.json())
-                .then((data) => {
-                    //console.log(data);
-                    const cardName = data.name;
+            const cardCount = {};
+
+            for (const rarity in packComposition) {
+                for (let i = 0; i < packComposition[rarity] * packAmount; i++) {
+                    const card =
+                        cards[rarity][
+                            Math.floor(Math.random() * cards[rarity].length)
+                        ];
+                    const cardName = card.name;
                     if (cardCount[cardName]) {
                         cardCount[cardName]++;
                     } else {
                         cardCount[cardName] = 1;
                     }
-                })
-                .catch((error) => console.error(error));
-            promises.push(promise);
-        }
-    }
+                }
+            }
 
-    Promise.all(promises).then(() => {
-        console.log(cardCount);
-        const textArea = document.querySelector("#results");
-        for (const card in cardCount) {
-            textArea.textContent += `${cardCount[card]} ${card}\n`;
-        }
+            const textArea = document.querySelector("#results");
+            for (const card in cardCount) {
+                textArea.textContent += `${cardCount[card]} ${card}\n`;
+            }
 
-        const resultsModal = new bootstrap.Modal("#resultsModal", {
-            keyboard: false,
-        });
-        resultsModal.show();
-    });
+            const resultsModal = new bootstrap.Modal("#resultsModal", {
+                keyboard: false,
+            });
+            resultsModal.show();
+        })
+        .catch((error) => console.error(error));
 });
+
+document.querySelector("#copy").addEventListener("click", function () {
+    const copyText = document.getElementById("results");
+
+    navigator.clipboard
+        .writeText(copyText.textContent)
+        .then(() => copyText.select());
+});
+
+function filterByRarity(rarity, setData) {
+    return setData.filter((card) => card.rarity === rarity);
+}
