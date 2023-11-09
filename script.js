@@ -40,6 +40,7 @@ document.querySelector("form").addEventListener("submit", function (e) {
             }
 
             const textArea = document.querySelector("#results");
+            textArea.textContent = "";
             for (const card in cardCount) {
                 textArea.textContent += `${cardCount[card]} ${card}\n`;
             }
