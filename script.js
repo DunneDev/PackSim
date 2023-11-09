@@ -2,12 +2,12 @@ document.querySelector("form").addEventListener("submit", function (e) {
     e.preventDefault();
 
     const packComposition = {
-        common: 11,
+        common: 4,
         uncommon: 3,
         rare: 1,
     };
 
-    const set = "2ED";
+    const set = "arn";
 
     fetch(`https://api.scryfall.com/cards/search?q=set:${set}`)
         .then((response) => response.json())
